@@ -2,9 +2,7 @@ FROM continuumio/miniconda3
 MAINTAINER James Banting <jbanting@deltageo.ca>
 
 # update conda and install arcsi using conda package manager and clean up (rm tar packages to save space) 
-RUN conda update --yes conda && \
-conda install --yes -c conda-forge -c au-eoed arcsi && \
-conda clean -t
+RUN conda update --yes conda conda install --yes -c conda-forge -c au-eoed arcsi conda clean -t
 
 # set gdal paths
 ENV GDAL_DRIVER_PATH /opt/anaconda/gdalplugins:$GDAL_DRIVER_PATH
