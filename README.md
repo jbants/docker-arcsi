@@ -8,20 +8,20 @@ This image is based on the official continuumio miniconda python 3.4 release, mi
 ### Setup
 To set up a ARCSI Docker container on your system, first ensure you have Docker installed; follow the instructions at https://docs.docker.com/installation/
 
-To use the image, either pull the latest trusted build from https://registry.hub.docker.com/u/epmorris/docker-arcsi/ by doing this:
+To use the image, either pull the latest trusted build from https://registry.hub.docker.com/u/deltageo/arcsi/ by doing this:
 
-`docker pull epmorris/docker-arcsi`
+`docker pull deltageo/arcsi`
 
 or build the image yourself like this:
 
-`docker build -t epmorris/docker-arcsi https://github.com/edwardpmorris/docker-arcsi`
+`docker build -t deltageo/docker-arcsi git://github.com/jbants/docker-arcsi.git
 
 Note: The 'build it yourself' option above will build from the develop branch wheras the trusted builds are against the master branch.
 
 ### Usage
 To run a container and get help on ARCSI commandline options do:
 
-`docker run -t epmorris/docker-arcsi arcsi.py -h`
+`docker run -t deltageo/arcsi arcsi.py -h`
 
 To mount a local volume with images, such as freely available USGS Landsat 8 images (available via http://earthexplorer.usgs.gov/), apply radiometric calibration and apply atmospheric correction, for example 'top-of-atmosphere' correction, do:
 
@@ -30,7 +30,7 @@ docker run -i -t \
 
 -v <path_to_local_landsat_folder>:<path_to_local_landsat_folder> \
 
-epmorris/docker-arcsi \
+deltageo/arcsi \
 
 arcsi.py \
 -s ls8 \
