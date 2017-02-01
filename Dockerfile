@@ -1,4 +1,4 @@
-FROM continuumio/miniconda:py35_latest
+FROM continuumio/miniconda3
 MAINTAINER James Banting <jbanting@deltageo.ca>
 
 # update conda and install arcsi using conda package manager and clean up (rm tar packages to save space) 
