@@ -1,9 +1,9 @@
-FROM continuumio/miniconda:py34_latest
-MAINTAINER Edward P. Morris <edward.morris@uca.es>
+FROM continuumio/miniconda:py35_latest
+MAINTAINER James Banting <jbanting@deltageo.ca>
 
 # update conda and install arcsi using conda package manager and clean up (rm tar packages to save space) 
 RUN conda update --yes conda && \
-conda install --yes -c https://conda.binstar.org/osgeo arcsi && \
+conda install --yes -c conda-forge -c au-eoed arcsi && \
 conda clean -t
 
 # set gdal paths
