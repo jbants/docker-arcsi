@@ -1,15 +1,29 @@
-FROM continuumio/miniconda3
+#Download Ubuntu
+FROM ubuntu
 MAINTAINER James Banting <jbanting@deltageo.ca>
 
-# update conda and install arcsi using conda package manager and clean up (rm tar packages to save space) 
-RUN conda update --yes conda  && \
-conda install --yes -c conda-forge -c au-eoed arcsi  && \
-conda clean -t
+#Set Mode to not interactive
+ENV DEBIAN_FRONTEND noninteractive
 
-# set gdal paths
-ENV GDAL_DRIVER_PATH /opt/anaconda/gdalplugins:$GDAL_DRIVER_PATH
-ENV GDAL_DATA /opt/anaconda/share/gdal
+#Install missing libraries
+RUN apt-get update --fix-missing && apt-get install -y wget bzip2 ca-certificates \
+    libglib2.0-0 libxext6 libsm6 libxrender1 \
+    git mercurial subversion
 
-# add debian packages required by arcsi
-RUN apt-get update && apt-get install -y libc-dev libgfortran3 libglib2.0-0 libsm6 libxrender1 libfontconfig1 libxext6
+#Download Miniconda
+RUN wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh 
 
+#Install Miniconda
+RUN /bin/bash Miniconda3-latest-Linux-x86_64.sh  -b -p /opt/conda && \
+rm Miniconda3-latest-Linux-x86_64.sh 
+
+ENV PATH /opt/conda/bin:$PATH
+
+#Install RSGIS
+RUN conda install numpy -y
+RUN conda install -c conda-forge -c rios scikit-learn rios h5py -y
+RUN conda install -c conda-forge -c rios rsgislib arcsi -y
+
+#Install Nano
+RUN apt-get install nano -y
